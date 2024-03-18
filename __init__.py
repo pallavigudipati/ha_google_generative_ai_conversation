@@ -86,7 +86,7 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
         model = genai.GenerativeModel(model_name=model_name)
 
         try:
-            response = await model.generate_content_async(prompt_parts)
+            response = await hass.async_add_executor_job(model.generate_content_async, prompt_parts)
         except (
             ClientError,
             ValueError,
